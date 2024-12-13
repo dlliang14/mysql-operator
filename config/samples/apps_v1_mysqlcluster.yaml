@@ -1,0 +1,23 @@
+apiVersion: apps.dlliang14.com/v1
+kind: MysqlCluster
+metadata:
+  labels:
+    app.kubernetes.io/name: mysql-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: mysqlcluster-sample
+spec:
+  # TODO(user): Add fields here
+  image: registry.cn-shanghai.aliyuncs.com/egon-k8s-test/mysql:5.7
+  replicas: 3
+  masterService: master-service
+  slaveService: slave-service
+  storage:
+    storageClassName: "local-path"
+    size: 1Gi
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"

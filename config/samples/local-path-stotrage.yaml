@@ -88,8 +88,7 @@ spec:
       serviceAccountName: local-path-provisioner-service-account
       containers:
         - name: local-path-provisioner
-          #image: rancher/local-path-provisioner:master-head
-          image: registry.cn-shanghai.aliyuncs.com/egon-k8s-test/local-path-provisioner:master-head
+          image: rancher/local-path-provisioner:master-head
           imagePullPolicy: IfNotPresent
           command:
             - local-path-provisioner

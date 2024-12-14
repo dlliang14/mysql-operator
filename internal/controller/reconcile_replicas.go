@@ -10,7 +10,7 @@ import (
 	"strconv"
 
 	databasev1 "github.com/dlliang14/api/v1" // 导入自定义的 MySQLCluster API 资源定义
-	v1 "k8s.io/api/core/v1"                // 核心 Kubernetes API 对象，例如 Pod 和 Service
+	v1 "k8s.io/api/core/v1"                  // 核心 Kubernetes API 对象，例如 Pod 和 Service
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 

@@ -9,13 +9,13 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	databasev1 "github.com/dlliang14/api/v1" // 导入自定义的 MySQLCluster API 资源定义
-	v1 "k8s.io/api/core/v1"                // 核心 Kubernetes API 对象，例如 Pod 和 Service
+	v1 "k8s.io/api/core/v1"                  // 核心 Kubernetes API 对象，例如 Pod 和 Service
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 const (
 	MySQLPassword          = "password"           // Hardcoded MySQL password
-	//KubeConfigPath         = "/root/.kube/config" // Hardcoded kubeconfig path
+	KubeConfigPath         = "/root/.kube/config" // Hardcoded kubeconfig path
 	MysqlClusterKind       = "MysqlCluster"
 	MysqlClusterAPIVersion = "apps.dlliang14.com/v1"
 )

@@ -11,14 +11,14 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/client-go/kubernetes"
-	//"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/tools/remotecommand"
 	"sigs.k8s.io/controller-runtime/pkg/client" // 提供与 Kubernetes API 交互的客户端
 	"sigs.k8s.io/controller-runtime/pkg/log"
-	"k8s.io/client-go/rest"
+	// "k8s.io/client-go/rest"
 
 	databasev1 "github.com/dlliang14/api/v1" // 导入自定义的 MySQLCluster API 资源定义
-	v1 "k8s.io/api/core/v1"                // 核心 Kubernetes API 对象，例如 Pod 和 Service
+	v1 "k8s.io/api/core/v1"                  // 核心 Kubernetes API 对象，例如 Pod 和 Service
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -206,6 +206,16 @@ func (r *MysqlClusterReconciler) createPod(ctx context.Context, name, image, con
 						{
 							Name:      "mysql-data",
 							MountPath: "/var/lib/mysql", // MySQL 数据目录
+						},
+					},
+					ReadinessProbe: &v1.Probe{
+						ProbeHandler: v1.ProbeHandler{
+							TCPSocket: &v1.TCPSocketAction{
+								Port: intstr.IntOrString{
+									Type:   intstr.Int,
+									IntVal: 3306,
+								},
+							},
 						},
 					},
 				},
@@ -420,8 +430,8 @@ func (r *MysqlClusterReconciler) execCommandOnPod(pod *v1.Pod, command string) (
 	//if kubeconfig == "" {
 	//	kubeconfig = "/root/.kube/config" // Fallback to default path
 	//}
-	//config, err := clientcmd.BuildConfigFromFlags("", KubeConfigPath) // 来自包："k8s.io/client-go/tools/clientcmd"
-	config, err := rest.InClusterConfig() // 来自包："k8s.io/client-go/rest"
+	config, err := clientcmd.BuildConfigFromFlags("", KubeConfigPath) // 来自包："k8s.io/client-go/tools/clientcmd"
+	// config, err := rest.InClusterConfig() // 来自包："k8s.io/client-go/rest"
 
 	if err != nil {
 		return "", err

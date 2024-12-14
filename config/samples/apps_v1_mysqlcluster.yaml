@@ -7,7 +7,7 @@ metadata:
   name: mysqlcluster-sample
 spec:
   # TODO(user): Add fields here
-  image: registry.cn-shanghai.aliyuncs.com/egon-k8s-test/mysql:5.7
+  image: mysql:5.7
   replicas: 3
   masterService: master-service
   slaveService: slave-service
